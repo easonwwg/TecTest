@@ -1,5 +1,6 @@
 package com.sac.test;
 
+
 /**
  * @author:eason
  * @Description：
@@ -7,4 +8,9 @@ package com.sac.test;
  * @ModifiedBy
  */
 public class test {
+
+    public void m1(){
+
+    }
+
 }
