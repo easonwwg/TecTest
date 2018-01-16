@@ -1,14 +1,9 @@
 package com.sac.quartz;
 
 
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
-import org.quartz.Trigger;
+import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
-import static org.quartz.JobBuilder.newJob;
-import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
-import static org.quartz.TriggerBuilder.newTrigger;
 
 /**
  * @author:eason
@@ -20,29 +15,28 @@ public class QuartzTest {
     public static void main(String[] args) {
 
         try {
-            //创建scheduler
+            //创建scheduler  调度器。所有的调度都是由它控制。
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-
             //定义一个Trigger
-            Trigger trigger = newTrigger()
+            Trigger trigger = TriggerBuilder.newTrigger()
                     //定义name/group
                     .withIdentity("trigger1", "group1")
-                            //一旦加入scheduler，立即生效
+                    //一旦加入scheduler，立即生效
                     .startNow()
-                            //使用SimpleTrigger
-                    .withSchedule(simpleSchedule()
+                    //使用SimpleTrigger
+                    .withSchedule(SimpleScheduleBuilder.simpleSchedule()
                             //每隔一秒执行一次
                             .withIntervalInSeconds(6)
-                                    //一直执行，奔腾到老不停歇
+                            //一直执行，奔腾到老不停歇
                             .repeatForever())
                     .build();
 
             //定义一个JobDetail
             //定义Job类为HelloQuartz类，这是真正的执行逻辑所在
-            JobDetail job = newJob(HelloQuartz.class)
+            JobDetail job = JobBuilder.newJob(HelloQuartz.class)
                     //定义name/group
                     .withIdentity("job1", "group1")
-                            //定义属性
+                    //定义属性
                     .usingJobData("name", "quartz")
                     .build();
 
