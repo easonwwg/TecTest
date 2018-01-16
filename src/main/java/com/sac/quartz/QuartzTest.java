@@ -19,7 +19,7 @@ public class QuartzTest {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             //定义一个Trigger
             Trigger trigger = TriggerBuilder.newTrigger()
-                    //定义name/group
+                    //定义name/group  注意这里的组和下面任务的组不是一个
                     .withIdentity("trigger1", "group1")
                     //一旦加入scheduler，立即生效
                     .startNow()
@@ -28,7 +28,9 @@ public class QuartzTest {
                             //每隔一秒执行一次
                             .withIntervalInSeconds(6)
                             //一直执行，奔腾到老不停歇
-                            .repeatForever())
+                            // .repeatForever()
+                            .withRepeatCount(3)
+                    )
                     .build();
 
             //定义一个JobDetail
@@ -46,12 +48,11 @@ public class QuartzTest {
             scheduler.start();
             //运行一段时间后关闭
             Thread.sleep(60000);
+            //true 表示等待任务完成再关闭
             scheduler.shutdown(true);
         } catch (Exception e) {
             e.printStackTrace();
-
         }
-
     }
 }
 
