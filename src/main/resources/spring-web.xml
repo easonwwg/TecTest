@@ -7,14 +7,14 @@
 
     <!-- 通过mvc:resources设置静态资源，这样servlet就会处理这些静态资源，而不通过控制器 -->
     <!-- 设置不过滤内容，比如:css,jquery,img 等资源文件 -->
-  <!--  <mvc:resources location="/*.html" mapping="/**.html"/>
-    <mvc:resources location="/css/*" mapping="/css/**"/>
-    <mvc:resources location="/js/*" mapping="/js/**"/>
-    <mvc:resources location="/images/*" mapping="/images/**"/>-->
+    <!--  <mvc:resources location="/*.html" mapping="/**.html"/>
+      <mvc:resources location="/css/*" mapping="/css/**"/>
+      <mvc:resources location="/js/*" mapping="/js/**"/>
+      <mvc:resources location="/images/*" mapping="/images/**"/>-->
 
 
     <!-- 设定消息转换的编码为utf-8防止controller返回中文乱码 -->
-    <bean
+   <bean
             class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>
@@ -34,38 +34,24 @@
     <!-- 默认扫描的包路径 -->
     <context:component-scan base-package="com.sac.controller"/>
 
-    <!-- mvc:view-controller可以在不需要Controller处理request的情况，转向到设置的View -->
-    <!-- 像下面这样设置，如果请求为/，则不通过controller，而直接解析为/index.jsp -->
-    <mvc:view-controller path="/" view-name="index"/>
-    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-        <property name="viewClass"
-                  value="org.springframework.web.servlet.view.JstlView"></property>
-        <!-- 配置jsp路径前缀 -->
-        <property name="prefix" value="/"></property>
-        <!-- 配置URl后缀 -->
-        <property name="suffix" value=".jsp"></property>
-    </bean>
-
     <!--配置任务调度-->
-
-
     <!--配置任务-->
     <!--第一个任务-->
-    <bean id="simpleJobDetail"
+   <!-- <bean id="simpleJobDetail"
           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <!--执行的目标-->
+        &lt;!&ndash;执行的目标&ndash;&gt;
         <property name="targetObject" ref="myBean"/>
-        <!--执行的目标方法-->
+        &lt;!&ndash;执行的目标方法&ndash;&gt;
         <property name="targetMethod" value="printMessage"/>
     </bean>
 
-    <!--第二个任务 给任务传递数据-->
+    &lt;!&ndash;第二个任务 给任务传递数据&ndash;&gt;
     <bean id="firstComplexJobDetail"
           class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-        <!--执行的任务-->
+        &lt;!&ndash;执行的任务&ndash;&gt;
         <property name="jobClass"
                   value="com.sac.quartz.FirstScheduledJob"/>
-        <!--执行任务的参数-->
+        &lt;!&ndash;执行任务的参数&ndash;&gt;
         <property name="jobDataMap">
             <map>
                 <entry key="anotherBean" value-ref="anotherBean"/>
@@ -76,24 +62,24 @@
     </bean>
 
 
-    <!--配置trigger-->
-    <!--第一个trigger-->
-    <!-- 距离当前时间1秒之后执行，之后每隔两秒钟执行一次 -->
+    &lt;!&ndash;配置trigger&ndash;&gt;
+    &lt;!&ndash;第一个trigger&ndash;&gt;
+    &lt;!&ndash; 距离当前时间1秒之后执行，之后每隔两秒钟执行一次 &ndash;&gt;
     <bean id="mySimpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
         <property name="jobDetail" ref="simpleJobDetail"/>
         <property name="startDelay" value="1000"/>
         <property name="repeatInterval" value="2000"/>
     </bean>
 
-    <!--第二个trigger-->
-    <!-- 每隔5秒钟执行一次 -->
+    &lt;!&ndash;第二个trigger&ndash;&gt;
+    &lt;!&ndash; 每隔5秒钟执行一次 &ndash;&gt;
     <bean id="myCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="firstComplexJobDetail"/>
         <property name="cronExpression" value="0/5 * * ? * *"/>
     </bean>
 
 
-    <!--配置schedual-->
+    &lt;!&ndash;配置schedual&ndash;&gt;
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="jobDetails">
             <list>
@@ -107,6 +93,6 @@
                 <ref bean="myCronTrigger"/>
             </list>
         </property>
-    </bean>
+    </bean>-->
 
 </beans>
