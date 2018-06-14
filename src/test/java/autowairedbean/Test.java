@@ -1,7 +1,7 @@
 package autowairedbean;
 
-import com.sac.autowaired.scanconfig.AnimalScan;
 import com.sac.autowaired.IAnimal;
+import com.sac.autowaired.scanconfig.AnimalScan;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -30,4 +30,5 @@ public class Test {
         dog.say();
         cat.say();
     }
+
 }

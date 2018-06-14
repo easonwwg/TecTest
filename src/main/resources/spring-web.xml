@@ -6,7 +6,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 设定消息转换的编码为utf-8防止controller返回中文乱码 -->
-  <bean
+    <bean
             class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>
@@ -18,73 +18,80 @@
                         </list>
                     </property>
                 </bean>
+                <bean
+                        class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
             </list>
         </property>
     </bean>
+
     <!-- 添加注解驱动 -->
-    <mvc:annotation-driven/>
+    <!--<mvc:annotation-driven/>
+-->
+
+    <bean class="com.sac.framework.WebConfig"/>
+
     <!-- 默认扫描的包路径 -->
     <context:component-scan base-package="com.sac.controller"/>
 
     <!--配置任务调度-->
     <!--配置任务-->
     <!--第一个任务-->
-   <!-- <bean id="simpleJobDetail"
-          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        &lt;!&ndash;执行的目标&ndash;&gt;
-        <property name="targetObject" ref="myBean"/>
-        &lt;!&ndash;执行的目标方法&ndash;&gt;
-        <property name="targetMethod" value="printMessage"/>
-    </bean>
+    <!-- <bean id="simpleJobDetail"
+           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+         &lt;!&ndash;执行的目标&ndash;&gt;
+         <property name="targetObject" ref="myBean"/>
+         &lt;!&ndash;执行的目标方法&ndash;&gt;
+         <property name="targetMethod" value="printMessage"/>
+     </bean>
 
-    &lt;!&ndash;第二个任务 给任务传递数据&ndash;&gt;
-    <bean id="firstComplexJobDetail"
-          class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-        &lt;!&ndash;执行的任务&ndash;&gt;
-        <property name="jobClass"
-                  value="com.sac.quartz.FirstScheduledJob"/>
-        &lt;!&ndash;执行任务的参数&ndash;&gt;
-        <property name="jobDataMap">
-            <map>
-                <entry key="anotherBean" value-ref="anotherBean"/>
-                <entry key="name" value="wwg"></entry>
-            </map>
-        </property>
-        <property name="Durability" value="true"/>
-    </bean>
-
-
-    &lt;!&ndash;配置trigger&ndash;&gt;
-    &lt;!&ndash;第一个trigger&ndash;&gt;
-    &lt;!&ndash; 距离当前时间1秒之后执行，之后每隔两秒钟执行一次 &ndash;&gt;
-    <bean id="mySimpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
-        <property name="jobDetail" ref="simpleJobDetail"/>
-        <property name="startDelay" value="1000"/>
-        <property name="repeatInterval" value="2000"/>
-    </bean>
-
-    &lt;!&ndash;第二个trigger&ndash;&gt;
-    &lt;!&ndash; 每隔5秒钟执行一次 &ndash;&gt;
-    <bean id="myCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-        <property name="jobDetail" ref="firstComplexJobDetail"/>
-        <property name="cronExpression" value="0/5 * * ? * *"/>
-    </bean>
+     &lt;!&ndash;第二个任务 给任务传递数据&ndash;&gt;
+     <bean id="firstComplexJobDetail"
+           class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+         &lt;!&ndash;执行的任务&ndash;&gt;
+         <property name="jobClass"
+                   value="com.sac.quartz.FirstScheduledJob"/>
+         &lt;!&ndash;执行任务的参数&ndash;&gt;
+         <property name="jobDataMap">
+             <map>
+                 <entry key="anotherBean" value-ref="anotherBean"/>
+                 <entry key="name" value="wwg"></entry>
+             </map>
+         </property>
+         <property name="Durability" value="true"/>
+     </bean>
 
 
-    &lt;!&ndash;配置schedual&ndash;&gt;
-    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-        <property name="jobDetails">
-            <list>
-                <ref bean="simpleJobDetail"/>
-                <ref bean="firstComplexJobDetail"/>
-            </list>
-        </property>
-        <property name="triggers">
-            <list>
-                <ref bean="mySimpleTrigger"/>
-                <ref bean="myCronTrigger"/>
-            </list>
-        </property>
-    </bean>-->
+     &lt;!&ndash;配置trigger&ndash;&gt;
+     &lt;!&ndash;第一个trigger&ndash;&gt;
+     &lt;!&ndash; 距离当前时间1秒之后执行，之后每隔两秒钟执行一次 &ndash;&gt;
+     <bean id="mySimpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+         <property name="jobDetail" ref="simpleJobDetail"/>
+         <property name="startDelay" value="1000"/>
+         <property name="repeatInterval" value="2000"/>
+     </bean>
+
+     &lt;!&ndash;第二个trigger&ndash;&gt;
+     &lt;!&ndash; 每隔5秒钟执行一次 &ndash;&gt;
+     <bean id="myCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+         <property name="jobDetail" ref="firstComplexJobDetail"/>
+         <property name="cronExpression" value="0/5 * * ? * *"/>
+     </bean>
+
+
+     &lt;!&ndash;配置schedual&ndash;&gt;
+     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+         <property name="jobDetails">
+             <list>
+                 <ref bean="simpleJobDetail"/>
+                 <ref bean="firstComplexJobDetail"/>
+             </list>
+         </property>
+         <property name="triggers">
+             <list>
+                 <ref bean="mySimpleTrigger"/>
+                 <ref bean="myCronTrigger"/>
+             </list>
+         </property>
+     </bean>-->
 
 </beans>

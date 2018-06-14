@@ -1,10 +1,5 @@
 package com.sac.lombok;
 
-import lombok.experimental.var;
-import lombok.val;
-
-import java.util.HashMap;
-
 /**
  * @author:eason
  * @Description
@@ -20,8 +15,8 @@ public class LombokTest {
         Stu stu1 = Stu.builder().country("sac").name("wwg").build();
 
         //val定义表示是final 不可变的
-        val s = "xx";
+        //val s = "xx";
         //var 表示是可变的
-        var ss = new HashMap<String, String>();
+        //var ss = new HashMap<String, String>();
     }
 }
