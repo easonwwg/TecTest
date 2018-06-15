@@ -1,5 +1,7 @@
 package com.sac.extension;
 
+import com.sac.bean.MyApplicationContextAware;
+import com.sac.bean.MyBeanFactoryAware;
 import com.sac.bean.Person;
 import com.sac.bean.PersonFactoryBean;
 import org.springframework.context.annotation.*;
@@ -33,5 +35,15 @@ public class ExtensionConfig {
     @Bean(name = "factoryBean")
     public PersonFactoryBean personFactoryBean() {
         return new PersonFactoryBean();
+    }
+
+    @Bean(name = "myFactoryBean")
+    public MyBeanFactoryAware myBeanFactoryAware() {
+        return new MyBeanFactoryAware();
+    }
+
+    @Bean(name = "myApplicationContextAware")
+    public MyApplicationContextAware myApplicationContextAware() {
+        return new MyApplicationContextAware();
     }
 }
